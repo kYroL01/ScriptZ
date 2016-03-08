@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#
+# Michele Campus (campus@ntop.org)
+#
+# bash script for a fast clean
+#
+
 #Pulizia pacchetti inutilizzati (autoremove) e cache pacchetti (autoclean e clean)
 echo -n "<< Pulizia pacchetti inutilizzati >>"
 

@@ -1,4 +1,13 @@
 #!/bin/bash
+
+#
+# Michele Campus (camus@ntop.org)
+#
+# bash script for measurment the
+# average packets number received
+# by the specified net interface
+#
+
  
 INTERVAL="1"  # interval in seconds
 N_PPS=0
