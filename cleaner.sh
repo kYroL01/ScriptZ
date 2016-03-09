@@ -6,47 +6,41 @@
 # bash script for a fast clean
 #
 
-#Pulizia pacchetti inutilizzati (autoremove) e cache pacchetti (autoclean e clean)
-echo -n "<< Pulizia pacchetti inutilizzati >>"
+# Autoremove and autoclean
+printf "<< Deleting packets >>\n" 
 
-#Pulizia (autoremove) pacchetti inutilizzati
-sudo apt-get autoremove
-echo "RIMOZIONE PACCHETTI INUTILIZZATI	...[OK]"
-#Pulizia cache pacchetti
+printf "DELETING UNUSED PACKETS         	...[OK]\n" 
 sudo apt-get autoclean
 sudo apt-get clean
-echo "PULIZIA CACHE DEI PACCHETTI		...[OK]"
+printf "DELETING PACKETS CACHE  		...[OK]\n" 
 
 
-#File temporanei e cestino
-echo -n "<< Cancellazione file temporanei e svuotamento cestino >>"
+# Temporary file and trash
+printf "<< Deleting temporary file and empty trash >>\n" 
 
-#Rimozione file temporanei (/tmp)
 sudo rm -fr /tmp/*
-echo "RIMOZIONE FILE TEMPOREANEI		...[OK]"
-#Rimozione file del cestino (.local/share/Trash)
+printf "DELETING TEMPORARY FILE 		...[OK]\n" 
 sudo rm -rf ~/.local/share/Trash/*
-echo "RIMOZIONE FILE NEL CESTINO		...[OK]"
-#Rimozione file thumbnail (.thumbnails)
+printf "EMPTYNG TRASH		                ...[OK]\n" 
 sudo rm -rf ~/.thumbnails/*
-echo "RIMOZIONE THUMBNAIL			...[OK]"
+printf "DELETING THUMBNAIL			...[OK]\n" 
 
 
-#Rimozione cache browser
-echo -n "<< Cancellazione cache dei browser >>"
+# Browser cache
+printf "<< Deleting browsers cache >>\n" 
 
 sudo rm -rf ~/.mozilla/firefox/*.default/Cache/* #Firefox/Iceweasel
-echo "RIMOZIONE CACHE FIREFOX/ICEWEASEL	...[OK]"
+printf "DELETING FIREFOX/ICEWEASEL CACHE	...[OK]\n" 
 sudo rm -rf ~/.cache/google-chrome/Default/Cache/* #Google Chrome
-echo "RIMOZIONE CACHE GOOGLE CHROME		...[OK]"
+printf "DELETING GOOGLE CHROME CACHE		...[OK]\n" 
 
 
-#Rimozione conversazioni Skype
-echo -n "<< Rimozione conversazioni Skype >>"
+# Skype
+printf "<< Deleting skype conversations >>\n" 
 sudo rm -rf ~/.Skype/*/chatmsg*.dbb #Skype
-echo "RIMOZIONE CONVERSAZIONI SKYPE		...[OK]"
+printf "DELETING SKYPE CONVERSATIONS		...[OK]\n" 
 
 
-echo "Pulizia completata. Juve merda!!"
+printf "--- Clean completed. Juve merda!! ---\n"
 
 exit
