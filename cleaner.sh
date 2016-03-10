@@ -7,7 +7,7 @@
 #
 
 # Autoremove and autoclean
-printf "<< Deleting packets >>\n" 
+printf "<<<--- Deleting packets --->>>\n" 
 
 printf "DELETING UNUSED PACKETS         	...[OK]\n" 
 sudo apt-get autoclean
@@ -41,6 +41,6 @@ sudo rm -rf ~/.Skype/*/chatmsg*.dbb #Skype
 printf "DELETING SKYPE CONVERSATIONS		...[OK]\n" 
 
 
-printf "--- Clean completed. Juve merda!! ---\n"
+printf "<<<--- Clean completed. Juve merda!! --->>>\n"
 
 exit
