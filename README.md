@@ -1,8 +1,8 @@
 # ScriptZ
-Usefull scripts box folder. Always in progress...
+__*Usefull scripts box folder. Always in progress...*__
 
-# cleaner
+## cleaner
 Bash script to keep system free from garbage things
 
-# pkts
+## pkts
 Bash script for measurment the averagepackets number received
