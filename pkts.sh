@@ -29,9 +29,10 @@ check_dev_linux()
 	
 fn_usage()
 {
-    printf "\nusage: $0 -i [network-interface] (opt) -s [seconds]\n"
-    printf "\ne.g. $0 -i wlan0\n"
-    printf "\n     $0 -i wlan0 -s 30\n"
+    printf "\nusage for $0: 
+             -i: specify a network-interface
+             -s: set time (in seconds) for capturing pkts [optional]
+             e.g. $0 -i wlan0\n"
     exit
 }
 
