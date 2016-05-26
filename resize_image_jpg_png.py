@@ -16,7 +16,7 @@ path_dst = os.getcwd() + '/my_dest_dir/'
 
 """ Check images format (jpg, png allowed)
 Args:
-     image_dir:  String - path to the source directorie.
+     image_dir:  String - path to the source directory.
 """
 def check_image_format(image_dir):
 
