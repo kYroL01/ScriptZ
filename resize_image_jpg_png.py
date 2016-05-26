@@ -10,13 +10,13 @@ import glob
 import imghdr as ih
 
 
-path_src = os.getcwd() + '/my_dataset/'
-path_dst = os.getcwd() + '/img_resized/'
+path_src = os.getcwd() + '/my_src_dir/'
+path_dst = os.getcwd() + '/my_dest_dir/'
 
 
 """ Check images format (jpg, png allowed)
 Args:
-     image_dir:  String - path to the dataset directories.
+     image_dir:  String - path to the source directorie.
 """
 def check_image_format(image_dir):
 
@@ -30,12 +30,14 @@ def check_image_format(image_dir):
     return 0
 
 
+### MAIN ###
 def main():
 
     ret = check_image_format(path_src)
 
     if(ret == -1):
         print ("Some images are in incorrect format")
+        return -1
     else:
         i = 0
         for dirName, subdirList, fileList in os.walk(path_src):
