@@ -15,7 +15,7 @@ SUM_TIME=0
 X=0
 D=0
 
-trap calc_avg SIGINT SIGTERM
+trap calc_avg SIGINT SIGTERM # trap for signals termination
 
 check_dev_linux()
 {
@@ -44,7 +44,6 @@ calc_avg()
     printf "\nInterface --> $i\n"
     printf "\nAverage packets captured = $AVG pkts/s\n"
     printf "\n----------------------------------------\n"
-    
     exit
 }
 
@@ -86,7 +85,6 @@ shift $((OPTIND-1))
 
 while true
 do
-    
     R1=$( cat /sys/class/net/$i/statistics/rx_packets )
     sleep $INTERVAL
     R2=$( cat /sys/class/net/$i/statistics/rx_packets )
@@ -106,6 +104,5 @@ do
 	if [ $TIMER == 0 ]; then
 	    kill -SIGTERM "$$"
 	fi
-    fi
-    
+    fi  
 done
