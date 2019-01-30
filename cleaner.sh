@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Michele Campus (campus@ntop.org)
+# Michele Campus (michelecampus5@gmail.com)
 #
 # bash script for a fast clean
 #
