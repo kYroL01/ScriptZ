@@ -9,6 +9,8 @@ Bash script to delete a repository from the system
 ## cleaner
 Bash script to keep system free from garbage things
 
+`./cleaner`
+
 ## pkts
 Bash script for measurment the average packets number received (required `bc` https://linux.die.net/man/1/bc )
 
