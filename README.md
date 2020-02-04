@@ -1,6 +1,11 @@
 # ScriptZ
 __*Usefull scripts box folder. Always in progress...*__
 
+## del_repo
+Bash script to delete a repository from the system
+
+`sudo ./del_repo.sh your-repo.list debian` or `sudo ./del_repo.sh your-repo.list centos`
+
 ## cleaner
 Bash script to keep system free from garbage things
 
