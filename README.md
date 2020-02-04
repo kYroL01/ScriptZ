@@ -10,7 +10,7 @@ Bash script to delete a repository from the system
 Bash script to keep system free from garbage things
 
 ## pkts
-Bash script for measurment the average packets number received
+Bash script for measurment the average packets number received (required `bc` https://linux.die.net/man/1/bc )
 
 `./pkts -i wlan0` or `./pkts -i eth0 -s 10`
 
