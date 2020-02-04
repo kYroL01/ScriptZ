@@ -35,10 +35,10 @@ sudo rm -rf ~/.cache/google-chrome/Default/Cache/* #Google Chrome
 printf "DELETING GOOGLE CHROME CACHE		...[OK]\n" 
 
 
-# Skype
-printf "<< Deleting skype conversations >>\n" 
-sudo rm -rf ~/.Skype/*/chatmsg*.dbb #Skype
-printf "DELETING SKYPE CONVERSATIONS		...[OK]\n" 
+# Local Cache
+printf "<< Deleting local cache >>\n" 
+sudo rm -rf ~/.cache/*
+printf "DELETING LOCAL CACHE FILES		...[OK]\n" 
 
 
 printf "<<<--- Clean completed. Juve merda!! --->>>\n"

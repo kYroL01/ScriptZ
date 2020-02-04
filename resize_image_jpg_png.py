@@ -1,8 +1,9 @@
 #
-# Michele Campus (campus@ntop.org)
+# Michele Campus (michelecampus5@gmail.com)
 #
 # python module to resize images without distortion
 #
+
 import PIL
 from PIL import Image
 import os
@@ -50,7 +51,7 @@ def main():
                 img = img.resize((basewidth,hsize), PIL.Image.ANTIALIAS)
                 i += 1
                 img.save(os.path.join(path_dst,"foo"+str(i)+".jpeg"))
-            
+
         print("Images resized correctly")
 
     return 0

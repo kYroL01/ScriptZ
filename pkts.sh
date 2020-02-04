@@ -8,7 +8,6 @@
 # by the specified net interface
 #
 
- 
 INTERVAL="1"  # interval in seconds
 N_PPS=0
 SUM_TIME=0
@@ -26,10 +25,10 @@ check_dev_linux()
 	fi
     done
 }
-	
+
 fn_usage()
 {
-    printf "\nusage for $0: 
+    printf "\nusage for $0:
              -i: specify a network-interface
              -s: set time (in seconds) for capturing pkts [optional]
              e.g. $0 -i wlan0\n"
