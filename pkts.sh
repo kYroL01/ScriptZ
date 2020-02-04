@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Michele Campus (camus@ntop.org)
+# Michele Campus (michelecampus5@gmail.com)
 #
 # bash script for measurment the
 # average packets number received
