@@ -6,6 +6,12 @@
 DEL_REPO="$1"
 OS="$2"
 
+if [ "$1" == "-l" ]
+then
+	ls -l /etc/apt/sources.list.d/
+	exit 1
+fi
+
 if [[ "$OS" == "debian" || "$OS" == "ubuntu" ]]
 then # Debian - Ubuntu
 	if [ -f /etc/apt/sources.list.d/"${DEL_REPO}" ]
