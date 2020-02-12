@@ -6,11 +6,16 @@
 DEL_REPO="$1"
 OS="$2"
 
-if [ "$1" == "-l" ]
+
+if [[ "$1" == "-l" && "$OS" == "centos" ]]
 then
-	ls -l /etc/apt/sources.list.d/
+	ls -l /etc/yum.repos.d/ # print on stdout list of all centos repositories
+        exit 1
+else
+        ls -l /etc/apt/sources.list.d/ # print on stdout list of all debian/ubuntu repositories
 	exit 1
 fi
+
 
 if [[ "$OS" == "debian" || "$OS" == "ubuntu" ]]
 then # Debian - Ubuntu
