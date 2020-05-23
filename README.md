@@ -29,4 +29,4 @@ Python module to resize images from a directory without any distortion
 # TODO list
 
 1. Script to disalbe completely a service in linux system (https://superuser.com/a/936976)
-
+2. Enable persistence journal (https://www.reddit.com/r/debian/comments/6jtbxx/debian_stretch_taking_too_long_to_shutdownreboot/)
