@@ -23,3 +23,10 @@ Bash script for measurment the average packets number received (required `bc` ht
 
 ## resize_image_jpg_png.py
 Python module to resize images from a directory without any distortion
+
+---
+
+# TODO list
+
+1. Script to disalbe completely a service in linux system (https://superuser.com/a/936976)
+
