@@ -23,3 +23,12 @@ Bash script for measurment the average packets number received (required `bc` ht
 
 ## resize_image_jpg_png.py
 Python module to resize images from a directory without any distortion
+
+---
+
+# TODO list
+
+1. Script to disalbe completely a service in linux system (https://superuser.com/a/936976)
+2. Enable persistence journal (https://www.reddit.com/r/debian/comments/6jtbxx/debian_stretch_taking_too_long_to_shutdownreboot/)
+3. Disable and mask a service (https://gist.github.com/noromanba/6e062d38fd7fd2cd609a6ef1c26ea7bc)
+4. Filter from web page
