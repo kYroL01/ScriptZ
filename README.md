@@ -7,7 +7,7 @@ Bash script to delete a repository from the system
 Option `-l` show the content of the system repositories directory
 `./del_repo.sh -l [distribution name]`
 
-Then you can delete it passing the name of repo and the name of OS (Debian or Centos)
+Then you can delete it passing the name of repo and the name of OS (Debian, Ubuntu or Centos)
 
 `./del_repo.sh your-repo.list debian` or `./del_repo.sh your-repo.list centos`
 
