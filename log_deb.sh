@@ -2,14 +2,9 @@
 
 ### for Debian ###
 
-### RTPAGENT LOGS
-FILE_R=rtpagent_log.txt
-cat /var/log/syslog | grep rtpagent >> "$FILE_R"
-
-### ZIP file or rtpagent config
-ZIP_FILE=rtpagent_config.zip
-CONFIG_PATH=/usr/local/rtpagent/etc
-zip -r "ZIP_FILE" "CONFIG_PATH"
+### LOGS
+FILE_R=log.txt
+cat /var/log/syslog | grep "$1" >> "$FILE_R"
 
 ### System Logs
 FILE_S=system_info.txt
