@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #
 # Michele Campus (michelecampus5@gmail.com)
 #
@@ -8,28 +7,31 @@
 # by the specified net interface
 #
 
+#set -x
+
 INTERVAL="1"  # interval in seconds
 N_PPS=0
 N_DROP=0
 SUM_TIME=0
 X=0
 D=0
+V=0
 
 # trap for signals termination - trigger the execution of the functions when one of the signal is catched
-trap calc_avg SIGINT SIGTERM
-trap calc_drop SIGINT SIGTERM 
+trap handler SIGINT SIGTERM
 
-fn_usage()
+function fn_usage()
 {
     printf "\nusage for $0:
              -i [net interface]: specify a network-interface
              -s [sec]          : set time (in seconds) for capturing pkts [optional]
              -l                : print the list of availlable network interfaces
+             -v                : verbose - print every pkt received/dropped per sec
              e.g. $0 -i wlan0\n"
     exit
 }
 
-check_dev_linux()
+function check_dev_linux()
 {
     dev_list=$( tail -n +3 /proc/net/dev | cut -d':' -f1 )
     for dev in $dev_list; do
@@ -39,17 +41,16 @@ check_dev_linux()
     done
 }
 
-calc_avg()
+function calc_avg()
 {
     AVG_RX=$(echo "scale=3; $N_PPS/$SUM_TIME" | bc )
     printf "\n----------------RX STATS-------------------\n"
     printf "\nInterface --> $i\n"
     printf "\nAverage packets captured = $AVG_RX pkts/s\n"
     printf "\n-------------------------------------------\n"
-    exit
 }
 
-calc_drop()
+function calc_drop()
 {
     AVG_DROP=$(echo "scale=3; $N_DROP/$SUM_TIME" | bc )
     printf "\n----------------DROP STATS-------------------\n"
@@ -59,6 +60,13 @@ calc_drop()
     exit
 }
 
+function handler() {
+    calc_avg
+    calc_drop
+}
+
+###############################################################
+
 if [ "$#" -eq 0 ]; then
     echo "Invalid number of arguments" >&2
     fn_usage
@@ -66,7 +74,7 @@ if [ "$#" -eq 0 ]; then
 fi
 
 # getops
-while getopts "i:s:l" opt; do
+while getopts "i:s:lv" opt; do
     case "${opt}" in
         i)
             i=${OPTARG}
@@ -89,6 +97,8 @@ while getopts "i:s:l" opt; do
         l)
             ip a
             exit 1;;
+        v)
+            V=1;;
 	    \?)
 	        fn_usage
             exit 1;;
@@ -96,6 +106,7 @@ while getopts "i:s:l" opt; do
 done
 shift $((OPTIND-1))
 
+###############################################################
 
 while true
 do
@@ -118,8 +129,11 @@ do
     ((TIMER -= 1))
     ((SUM_TIME += 1))
 
-    printf "Pkts received: $RXPPS   pkts/s\n"
-    printf "Pkts dropped:  $DROPPPS pkts/s\n"
+    # verbose
+    if [ "$V" -eq 1 ]; then
+        printf "Pkts received: $RXPPS   pkts/s\n"
+        printf "Pkts dropped:  $DROPPPS pkts/s\n"
+    fi
 
     if [ "$X" == 1 ]; then
 	    if [ $TIMER == 0 ]; then
