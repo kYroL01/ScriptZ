@@ -3,8 +3,8 @@
 # Michele Campus (michelecampus5@gmail.com)
 #
 # bash script for measurment the
-# average packets number received
-# by the specified net interface
+# average packets number received and dropped
+# by the specified network interface
 #
 
 #set -x
