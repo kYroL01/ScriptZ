@@ -14,12 +14,27 @@ Then you can delete it passing the name of repo and the name of OS (Debian, Ubun
 ## cleaner
 Bash script to keep system free from garbage things
 
-`./cleaner`
+`./cleaner.sh`
 
 ## pkts
 Bash script for measurment the average packets number received (required `bc` https://linux.die.net/man/1/bc )
 
-`./pkts -i wlan0` or `./pkts -i eth0 -s 10`
+`./pkts.sh -i wlan0` or `./pkts -i eth0 -s 10`
+
+## converter
+bash script to convert:
+1. base of a number
+2. multiple file extension
+
+`./converter.sh 1 [base] [number]`
+
+`./converter.sh 2 [old_ext] [new_ext]`
+
+## tshark check
+bash script using tshark to extract network layer informations
+from the network packets on any interface (detection on 1000 pkts)
+
+`./tshark_check.sh`
 
 ## resize_image_jpg_png.py
 Python module to resize images from a directory without any distortion
@@ -32,4 +47,3 @@ Python module to resize images from a directory without any distortion
 2. Enable persistence journal (https://www.reddit.com/r/debian/comments/6jtbxx/debian_stretch_taking_too_long_to_shutdownreboot/)
 3. Disable and mask a service (https://gist.github.com/noromanba/6e062d38fd7fd2cd609a6ef1c26ea7bc)
 4. Filter from web page
-5. Add Ubuntu to distribution name list in repo
