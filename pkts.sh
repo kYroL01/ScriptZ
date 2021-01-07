@@ -74,7 +74,7 @@ if [ "$#" -eq 0 ]; then
 fi
 
 # getops
-while getopts "i:s:lv" opt; do
+while getopts "i:s:lvh" opt; do
     case "${opt}" in
         i)
             i=${OPTARG}
@@ -99,6 +99,9 @@ while getopts "i:s:lv" opt; do
             exit 1;;
         v)
             V=1;;
+        h)
+            fn_usage                                                                                                                                  
+            exit 1;;
 	    \?)
 	        fn_usage
             exit 1;;
