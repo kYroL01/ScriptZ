@@ -41,7 +41,7 @@ bash script to show system reboot and shutdown date and time
 
 `./bootime`
 
-## os_detected
+## os_detect
 bash script to easy detect the OS name as a string
 
 `./os_detected`
