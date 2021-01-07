@@ -1,7 +1,9 @@
 #!/bin/bash
 
-### Michele Campus - michelecampus5@gmail.com ###
-## The script take a repository name as Input and delete it from the existing list under /etc/apt/sources.list.d/ ##
+#
+# The script take a repository name as Input
+# and delete it from the existing list under /etc/apt/sources.list.d/
+#
 
 DEL_REPO="$1"
 OS="$2"

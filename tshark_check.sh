@@ -15,6 +15,29 @@ IS_SIP=0
 IS_SDP=0
 IS_RTP=0
 
+function os_detect()
+{
+    OS=`grep '^NAME' /etc/os-release | awk -F= {'print $2'}`
+    SUB=`echo $OS | cut -d' ' -f 1`
+    OS="${SUB:1}"
+}
+
+os_detect
+echo "OS is $OS"
+
+### check if tshark is installed
+ts=`which -a tshark`
+if [ -z "$ts" ]; then
+    if [ "$OS" == "Centos" ]; then
+        `yum update`
+        `yum -y install wireshark`
+    elif [[ "$OS" == "Debian" || "$OS" == "Ubuntu" ]]; then
+        echo "HERE"
+        `apt-get update`
+        `apt-get install wireshark`
+    fi
+fi
+
 ### call TSHARK on 1000 pkts
 tshark -c 1000 -i any -T fields -e frame.protocols -e frame.len &> protocols.txt
 
