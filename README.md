@@ -36,6 +36,16 @@ from the network packets on any interface (detection on 1000 pkts)
 
 `./tshark_check.sh`
 
+## bootime
+bash script to show system reboot and shutdown date and time
+
+`./bootime`
+
+## os_detect
+bash script to easy detect the OS name as a string
+
+`./os_detected`
+
 ## resize_image_jpg_png.py
 Python module to resize images from a directory without any distortion
 
