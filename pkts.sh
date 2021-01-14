@@ -7,6 +7,7 @@
 
 #set -x
 
+FILE=pkts_net.txt
 INTERVAL="1"  # interval in seconds
 N_PPS=0
 N_DROP=0
@@ -43,18 +44,26 @@ function calc_avg()
 {
     AVG_RX=$(echo "scale=3; $N_PPS/$SUM_TIME" | bc )
     printf "\n----------------RX STATS-------------------\n"
+    echo "----------------RX STATS-------------------" >> "$FILE"
     printf "\nInterface --> $i\n"
+    echo "Interface --> $i" >> "$FILE"
     printf "\nAverage packets captured = $AVG_RX pkts/s\n"
-    printf "\n-------------------------------------------\n"
+    echo "Average packets captured = $AVG_RX pkts/s" >> "$FILE"
+    printf "\n-------------------------------------------"
+    echo "-------------------------------------------" >> "$FILE"
 }
 
 function calc_drop()
 {
     AVG_DROP=$(echo "scale=3; $N_DROP/$SUM_TIME" | bc )
     printf "\n----------------DROP STATS-------------------\n"
+    echo "----------------DROP STATS-------------------" >> "$FILE"
     printf "\nInterface --> $i\n"
+    echo "Interface --> $i"
     printf "\nAverage packets dropped = $AVG_DROP pkts/s\n"
+    echo "Average packets dropped = $AVG_DROP pkts/s"
     printf "\n---------------------------------------------\n"
+    echo "---------------------------------------------"
     exit
 }
 
