@@ -15,6 +15,8 @@ SUM_TIME=0
 X=0
 D=0
 V=0
+#NOW=$(date +"%d_%m_%Y")
+NOW=$(date)
 
 # trap for signals termination - trigger the execution of the functions when one of the signal is catched
 trap handler SIGINT SIGTERM
@@ -43,6 +45,7 @@ function check_dev_linux()
 function calc_avg()
 {
     AVG_RX=$(echo "scale=3; $N_PPS/$SUM_TIME" | bc )
+    echo "[$NOW]" >> "$FILE"
     printf "\n----------------RX STATS-------------------\n"
     echo "----------------RX STATS-------------------" >> "$FILE"
     printf "\nInterface --> $i\n"
@@ -59,11 +62,11 @@ function calc_drop()
     printf "\n----------------DROP STATS-------------------\n"
     echo "----------------DROP STATS-------------------" >> "$FILE"
     printf "\nInterface --> $i\n"
-    echo "Interface --> $i"
+    echo "Interface --> $i" >> "$FILE"
     printf "\nAverage packets dropped = $AVG_DROP pkts/s\n"
-    echo "Average packets dropped = $AVG_DROP pkts/s"
+    echo "Average packets dropped = $AVG_DROP pkts/s" >> "$FILE"
     printf "\n---------------------------------------------\n"
-    echo "---------------------------------------------"
+    echo "---------------------------------------------" >> "$FILE"
     exit
 }
 
@@ -107,7 +110,7 @@ while getopts "i:s:lvh" opt; do
         v)
             V=1;;
         h)
-            fn_usage                                                                                                                                  
+            fn_usage
             exit 1;;
 	    \?)
 	        fn_usage
@@ -128,7 +131,7 @@ do
 
     RXPPS=$( expr $R2 - $R1 )
     DROPPPS=$( expr $D2 - $D1 )
-    
+
     if [ "$RXPPS" -gt 0 ]; then
 	    ((N_PPS += RXPPS))
     fi
