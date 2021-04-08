@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# author: Michele Campus
+#
 # bash script for measurment the
 # average packets number received and dropped
 # by the specified network interface
