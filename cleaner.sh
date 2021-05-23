@@ -25,7 +25,9 @@ printf "EMPTYNG TRASH		                ...[OK]\n"
 sudo rm -rf ~/.thumbnails/*
 printf "DELETING THUMBNAIL			...[OK]\n" 
 
-
+# Log files
+printf "<< Deleting compressed logfiles >>\n" 
+sudo rm -rf /var/log/*.gz
 
 # Local Cache
 printf "<< Deleting local cache >>\n" 
