@@ -14,6 +14,23 @@ IS_WEBSOCK_HTTP=0
 IS_SIP=0
 IS_SDP=0
 IS_RTP=0
+IFACE=any
+
+function fn_usage()
+{
+    printf "usage for $0:
+             -c [num pkts]:      How many pkts you want to capture and analyze
+             -i [net interface]: Specify a network-interface (any if not specified)
+             e.g. $0 -c 1000 -i wlan0
+		  $0 -c 2500\n"
+    exit
+}
+
+if [ "$#" -eq 0 ]; then
+    echo "Invalid number of arguments" >&2
+    fn_usage
+    exit 1
+fi
 
 function os_detect()
 {
@@ -38,8 +55,12 @@ if [ -z "$ts" ]; then
     fi
 fi
 
-### call TSHARK on 1000 pkts
-tshark -c 1000 -i any -T fields -e frame.protocols -e frame.len &> protocols.txt
+if [ "$#" -eq 2 ]; then
+	IFACE="$2" 
+fi
+
+### call TSHARK on N pkts
+tshark -c "$1" -i any -T fields -e frame.protocols -e frame.len &> protocols.txt
 
 function parser()
 {
