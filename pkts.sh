@@ -13,6 +13,7 @@ FILE=pkts_net.txt
 INTERVAL="1"  # interval in seconds
 N_PPS=0
 N_DROP=0
+N_ERR=0
 SUM_TIME=0
 X=0
 D=0
@@ -30,7 +31,7 @@ function fn_usage()
              -s [sec]          : set time (in seconds) for capturing pkts [optional]
              -l                : print the list of availlable network interfaces
              -v                : verbose - print every pkt received/dropped per sec
-             e.g. $0 -i wlan0\n"
+             (e.g. $0 -i wlan0)\n"
     exit
 }
 
@@ -44,7 +45,7 @@ function check_dev_linux()
     done
 }
 
-function calc_avg()
+function calc_avg_rcv()
 {
     AVG_RX=$(echo "scale=3; $N_PPS/$SUM_TIME" | bc )
     echo "[$NOW]" >> "$FILE"
@@ -58,11 +59,11 @@ function calc_avg()
     echo "-------------------------------------------" >> "$FILE"
 }
 
-function calc_drop()
+function calc_avg_drop()
 {
     AVG_DROP=$(echo "scale=3; $N_DROP/$SUM_TIME" | bc )
-    printf "\n----------------DROP STATS-------------------\n"
-    echo "----------------DROP STATS-------------------" >> "$FILE"
+    printf "\n----------------RX DROP STATS-------------------\n"
+    echo "----------------RX DROP STATS-------------------" >> "$FILE"
     printf "\nInterface --> $i\n"
     echo "Interface --> $i" >> "$FILE"
     printf "\nAverage packets dropped = $AVG_DROP pkts/s\n"
@@ -72,9 +73,24 @@ function calc_drop()
     exit
 }
 
+function calc_avg_err()
+{
+    AVG_DROP=$(echo "scale=3; $N_ERR/$SUM_TIME" | bc )
+    printf "\n----------------RX ERR STATS-------------------\n"
+    echo "----------------RX ERR STATS-------------------" >> "$FILE"
+    printf "\nInterface --> $i\n"
+    echo "Interface --> $i" >> "$FILE"
+    printf "\nAverage packets error = $AVG_ERR pkts/s\n"
+    echo "Average packets error = $AVG_ERR pkts/s" >> "$FILE"
+    printf "\n---------------------------------------------\n"
+    echo "---------------------------------------------" >> "$FILE"
+    exit
+}
+
 function handler() {
-    calc_avg
-    calc_drop
+    calc_avg_rcv
+    calc_avg_drop
+    calc_avg_err
 }
 
 ###############################################################
@@ -127,12 +143,15 @@ while true
 do
     R1=$( cat /sys/class/net/$i/statistics/rx_packets )
     D1=$( cat /sys/class/net/$i/statistics/rx_dropped )
+    E1=$( cat /sys/class/net/$i/statistics/rx_errors  )
     sleep $INTERVAL
     R2=$( cat /sys/class/net/$i/statistics/rx_packets )
     D2=$( cat /sys/class/net/$i/statistics/rx_dropped )
+    E2=$( cat /sys/class/net/$i/statistics/rx_errors  )
 
-    RXPPS=$( expr $R2 - $R1 )
-    DROPPPS=$( expr $D2 - $D1 )
+    RXPPS=$( expr "$R2" - "$R1" )
+    DROPPPS=$( expr "$D2" - "$D1" )
+    ERRPPS=$( expr "$E2" - "$E1" )
 
     if [ "$RXPPS" -gt 0 ]; then
 	    ((N_PPS += RXPPS))
@@ -140,19 +159,23 @@ do
     if [ "$DROPPPS" -gt 0 ]; then
 	    ((N_DROP += DROPPPS))
     fi
+    if [ "$ERRPPS" -gt 0 ]; then
+	    ((N_ERR += ERRPPS))
+    fi
 
     ((TIMER -= 1))
     ((SUM_TIME += 1))
 
     # verbose
     if [ "$V" -eq 1 ]; then
-        printf "Pkts received: $RXPPS   pkts/s\n"
-        printf "Pkts dropped:  $DROPPPS pkts/s\n"
+        printf "Pkts received correctly: $RXPPS   pkts/s\n"
+        printf "Pkts received dropped:   $DROPPPS pkts/s\n"
+        printf "Pkts received error:     $ERRPPS  pkts/s\n"
     fi
 
     if [ "$X" == 1 ]; then
 	    if [ $TIMER == 0 ]; then
 	        kill -SIGTERM "$$"
 	    fi
-    fi  
+    fi
 done
