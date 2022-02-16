@@ -2,19 +2,21 @@
 #
 # author: Michele Campus
 #
-# bash script for measurment the
-# average packets number received and dropped
-# by the specified network interface
+# bash script to calculate the average packets of a network interface
+# - received
+# - dropped
+# - errors
 #
 
 #set -x
 
-FILE=pkts_net.txt
+FILE=pkts-net.log
 INTERVAL="1"  # interval in seconds
 N_PPS=0
 N_DROP=0
 N_ERR=0
 SUM_TIME=0
+DUMP=0
 X=0
 D=0
 V=0
@@ -30,7 +32,8 @@ function fn_usage()
              -i [net interface]: specify a network-interface
              -s [sec]          : set time (in seconds) for capturing pkts [optional]
              -l                : print the list of availlable network interfaces
-             -v                : verbose - print every pkt received/dropped per sec
+             -v                : verbose - print every received/dropped/errors pkt per second
+             -d                : dump information with date in a file called pkts-net.log
              (e.g. $0 -i wlan0)\n"
     exit
 }
@@ -48,49 +51,61 @@ function check_dev_linux()
 function calc_avg_rcv()
 {
     AVG_RX=$(echo "scale=3; $N_PPS/$SUM_TIME" | bc )
-    echo "[$NOW]" >> "$FILE"
-    printf "\n----------------RX STATS-------------------\n"
-    echo "----------------RX STATS-------------------" >> "$FILE"
-    printf "\nInterface --> $i\n"
-    echo "Interface --> $i" >> "$FILE"
-    printf "\nAverage packets captured = $AVG_RX pkts/s\n"
-    echo "Average packets captured = $AVG_RX pkts/s" >> "$FILE"
-    printf "\n-------------------------------------------"
-    echo "-------------------------------------------" >> "$FILE"
+    if [ "$DUMP" -eq 1 ]; then
+        echo " " >> "$FILE"
+        echo "[$NOW]" >> "$FILE"
+        echo "-------------------RX STATS----------------------" >> "$FILE"
+        echo "Interface --> $i" >> "$FILE"
+        echo "Average packets captured = $AVG_RX pkts/s" >> "$FILE"
+        echo "#################################################" >> "$FILE"
+        printf "RX STATS info stored in pkts-net.log\n"
+    else
+        printf "\n--------------------RX STATS---------------------\n"
+        printf "\nInterface --> $i\n"
+        printf "\nAverage packets captured = $AVG_RX pkts/s\n"
+        printf "\n#################################################\n"
+    fi
 }
 
 function calc_avg_drop()
 {
     AVG_DROP=$(echo "scale=3; $N_DROP/$SUM_TIME" | bc )
-    printf "\n----------------RX DROP STATS-------------------\n"
-    echo "----------------RX DROP STATS-------------------" >> "$FILE"
-    printf "\nInterface --> $i\n"
-    echo "Interface --> $i" >> "$FILE"
-    printf "\nAverage packets dropped = $AVG_DROP pkts/s\n"
-    echo "Average packets dropped = $AVG_DROP pkts/s" >> "$FILE"
-    printf "\n---------------------------------------------\n"
-    echo "---------------------------------------------" >> "$FILE"
-    exit
+    if [ "$DUMP" -eq 1 ]; then
+        echo "-----------------RX DROP STATS-------------------" >> "$FILE"
+        echo "Interface --> $i" >> "$FILE"
+        echo "Average packets dropped = $AVG_DROP pkts/s" >> "$FILE"
+        echo "#################################################" >> "$FILE"
+        printf "RX DROP STATS info stored in pkts-net.log\n"
+    else
+        printf "\n----------------RX DROP STATS--------------------\n"
+        printf "\nInterface --> $i\n"
+        printf "\nAverage packets dropped = $AVG_DROP pkts/s\n"
+        printf "\n#################################################\n"
+    fi
 }
 
 function calc_avg_err()
 {
     AVG_DROP=$(echo "scale=3; $N_ERR/$SUM_TIME" | bc )
-    printf "\n----------------RX ERR STATS-------------------\n"
-    echo "----------------RX ERR STATS-------------------" >> "$FILE"
-    printf "\nInterface --> $i\n"
-    echo "Interface --> $i" >> "$FILE"
-    printf "\nAverage packets error = $AVG_ERR pkts/s\n"
-    echo "Average packets error = $AVG_ERR pkts/s" >> "$FILE"
-    printf "\n---------------------------------------------\n"
-    echo "---------------------------------------------" >> "$FILE"
-    exit
+    if [ "$DUMP" -eq 1 ]; then
+        echo "-----------------RX ERR STATS--------------------" >> "$FILE"
+        echo "Interface --> $i" >> "$FILE"
+        echo "Average packets error = $AVG_ERR pkts/s" >> "$FILE"
+        echo "#################################################" >> "$FILE"
+        printf "RX ERR STATS info stored in pkts-net.log\n"
+    else
+        printf "\n----------------RX ERR STATS---------------------\n"
+        printf "\nInterface --> $i\n"
+        printf "\nAverage packets error = $AVG_ERR pkts/s\n"
+        printf "\n#################################################\n"
+    fi
 }
 
 function handler() {
     calc_avg_rcv
     calc_avg_drop
     calc_avg_err
+    exit
 }
 
 ###############################################################
@@ -102,7 +117,7 @@ if [ "$#" -eq 0 ]; then
 fi
 
 # getops
-while getopts "i:s:lvh" opt; do
+while getopts "i:s:ldvh" opt; do
     case "${opt}" in
         i)
             i=${OPTARG}
@@ -125,6 +140,8 @@ while getopts "i:s:lvh" opt; do
         l)
             ip a
             exit 1;;
+        d)
+            DUMP=1;;
         v)
             V=1;;
         h)
