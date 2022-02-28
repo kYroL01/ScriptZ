@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# bash script to shhow system reboot and shutdown date and time
+# bash script to show system reboot and shutdown date and time
 #
 echo "--------------------------------------------"
 echo "--- time of last system boot ---"
