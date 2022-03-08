@@ -15,7 +15,9 @@ read -p "Number of test: " num_test
 echo "$num_test" >> test_mem.log
 read -p "Description: " descr
 echo "$descr" >> test_mem.log
-read -p "Program name: " progr
+if [ "$new" == "no" ]; then
+	read -p "Program name: " progr
+fi
 
 # free mem command
 free -h >> test_mem.log
