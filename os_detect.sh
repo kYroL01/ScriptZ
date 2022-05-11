@@ -6,4 +6,8 @@
 OS=`grep '^NAME' /etc/os-release | awk -F= {'print $2'}`
 SUB=`echo $OS | cut -d' ' -f 1`
 OS="${SUB:1}"
-echo "$OS"
+
+ID=`grep '^VERSION_ID' /etc/os-release | awk -F= {'print $2'}`
+REL=`grep '^VERSION_CODENAME' /etc/os-release | awk -F= {'print $2'}`
+
+echo "$OS $ID $REL"
