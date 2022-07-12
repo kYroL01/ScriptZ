@@ -86,7 +86,7 @@ function calc_avg_drop()
 
 function calc_avg_err()
 {
-    AVG_DROP=$(echo "scale=3; $N_ERR/$SUM_TIME" | bc )
+    AVG_ERR=$(echo "scale=3; $N_ERR/$SUM_TIME" | bc )
     if [ "$DUMP" -eq 1 ]; then
         echo "-----------------RX ERR STATS--------------------" >> "$FILE"
         echo "Interface --> $i" >> "$FILE"
