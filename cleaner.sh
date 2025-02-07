@@ -18,7 +18,7 @@ printf "DELETING PACKETS CACHE  		...[OK]\n"
 # Temporary file and trash
 printf "<< Deleting temporary file and empty trash >>\n" 
 
-sudo rm -fr /tmp/*
+sudo rm -rf /tmp/*
 printf "DELETING TEMPORARY FILE 		...[OK]\n" 
 sudo rm -rf ~/.local/share/Trash/*
 printf "EMPTYNG TRASH		                ...[OK]\n" 
