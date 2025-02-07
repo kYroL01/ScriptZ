@@ -35,13 +35,17 @@ sudo rm -rf ~/.cache/*
 printf "DELETING LOCAL CACHE FILES		...[OK]\n" 
 
 # Docker cleaning
-printf "<< Deleting docker containers >>\n" 
-sudo docker container prune
-printf "DELETING DOCKER CONTAINER		...[OK]\n" 
-printf "<< Deleting docker images >>\n" 
-sudo docker image prune -a
-printf "DELETING DOCKER IMAGES			...[OK]\n" 
-
+if command -v docker &> /dev/null
+then
+	printf "<< Deleting docker containers >>\n" 
+	sudo docker container prune
+	printf "DELETING DOCKER CONTAINER		...[OK]\n" 
+	printf "<< Deleting docker images >>\n" 
+	sudo docker image prune -a
+	printf "DELETING DOCKER IMAGES			...[OK]\n" 
+else
+    echo "Docker is not installed"
+fi
 
 printf "<<<--- Clean completed. Juve merda!! --->>>\n"
 
